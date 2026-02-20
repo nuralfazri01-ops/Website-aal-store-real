@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PANEL AAL STORE REAL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.85)),
+    url('https://files.catbox.moe/ie874r.jpg') no-repeat center fixed;
+    background-size:cover;
+    color:#fff;
+}
+
+/* HEADER */
+.logo-img{
+    border:4px solid #38ef7d;
+    border-radius:50%;
+    padding:5px;
+    box-shadow:0 0 20px rgba(56,239,125,.4);
+}
+
+/* WA BUTTON FIX */
+.nav-contact{
+    text-align:center;
+    margin:20px 0;
+}
+
+.btn-wa-nav{
+    background:rgba(56,239,125,.15);
+    backdrop-filter:blur(10px);
+    border:1px solid #38ef7d;
+    color:#38ef7d!important;
+
+    padding:14px 30px;
+    border-radius:50px;
+
+    font-weight:600;
+    letter-spacing:.5px;
+
+    text-decoration:none!important;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    white-space:nowrap; /* 🔥 biar ga turun */
+    box-shadow:0 0 15px rgba(56,239,125,.3);
+}
+
+.btn-wa-nav:hover{
+    background:#38ef7d;
+    color:#000!important;
+}
+
+/* CARD */
+.glass-card{
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.section-title{
+    font-weight:600;
+    border-left:4px solid #38ef7d;
+    padding-left:10px;
+    margin-bottom:20px;
+}
+
+.form-control{
+    background:rgba(0,0,0,.3)!important;
+    color:#fff!important;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.1);
+}
+
+/* BUTTON */
+.btn-custom{
+    background:linear-gradient(45deg,#11998e,#38ef7d);
+    border:none;
+    color:#000;
+    font-weight:700;
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+}
+
+.table-custom{color:#fff;}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="text-center mt-4">
+<img src="https://files.catbox.moe/ynkb3w.jpg" class="logo-img" width="110">
+<h4 class="mt-3 font-weight-bold text-uppercase">
+PANEL BY <span style="color:#38ef7d">AAL STORE REAL</span>
+</h4>
+</div>
+
+<!-- WA BUTTON -->
+<div class="nav-contact">
+<a href="https://wa.me/6287776613780" target="_blank" class="btn-wa-nav">
+<i class="fab fa-whatsapp"></i>
+NO WA AAL STORE REAL
+</a>
+</div>
+
+<!-- DATA SERVER -->
+<div class="glass-card">
+<div class="section-title">Data Server</div>
+
+<label>Nama Result</label>
+<input type="text" id="namaResult" class="form-control" value="AAL STORE REAL GACOR">
+
+<label class="mt-3">Panel Murni (Sender)</label>
+<input type="text" class="form-control" value="support.aal@store.id" readonly>
+
+<button id="gantiButton" class="btn btn-custom mt-3">Update Data</button>
+</div>
+
+<!-- EMAIL -->
+<div class="glass-card">
+<div class="section-title">Email Configuration</div>
+
+<div class="row">
+<div class="col-8">
+<input type="email" id="email" class="form-control" placeholder="Target Email...">
+</div>
+
+<div class="col-4">
+<input type="number" id="jumlahResult" class="form-control" value="1">
+</div>
+</div>
+
+<button id="addEmailButton" class="btn btn-custom mt-3">
+Add Receiver
+</button>
+
+<div class="table-responsive mt-4">
+<table class="table table-custom">
+<thead>
+<tr>
+<th>Email</th>
+<th class="text-center">Limit</th>
+<th class="text-center">Del</th>
+</tr>
+</thead>
+<tbody id="emailData"></tbody>
+</table>
+</div>
+</div>
+
+<a href="https://whatsapp.com/channel/0029VbBx01V1iUxT39t0DY2Q"
+class="btn-custom text-center d-block mt-4"
+style="text-decoration:none;background:linear-gradient(45deg,#00d2ff,#3a7bd5);color:#fff;">
+<i class="fas fa-globe mr-2"></i>
+Create Panel Jasteb Klick disini
+</a>
+
+<div class="text-center mt-4 text-muted" style="font-size:11px;">
+© creat web by Putzzdev
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+// LOAD DATA
+document.addEventListener("DOMContentLoaded",()=>{
+    loadEmails();
+
+    let savedNama=localStorage.getItem("namaResult");
+    if(savedNama){
+        document.getElementById("namaResult").value=savedNama;
+    }
+
+    document.getElementById("gantiButton").onclick=()=>{
+        localStorage.setItem(
+            "namaResult",
+            document.getElementById("namaResult").value
+        );
+        Swal.fire("Berhasil","Data tersimpan!","success");
+    };
+
+    document.getElementById("addEmailButton").onclick=()=>{
+        let email=document.getElementById("email").value.trim();
+        let limit=document.getElementById("jumlahResult").value;
+
+        if(!email){
+            Swal.fire("Error","Email kosong!","error");
+            return;
+        }
+
+        let data=JSON.parse(localStorage.getItem("emailData"))||[];
+        data.push({email:email,jumlahResult:limit});
+        localStorage.setItem("emailData",JSON.stringify(data));
+
+        document.getElementById("email").value="";
+        loadEmails();
+
+        Swal.fire("Success","Email berhasil ditambahkan","success");
+    };
+});
+
+function loadEmails(){
+    let data=JSON.parse(localStorage.getItem("emailData"))||[];
+    let body=document.getElementById("emailData");
+    body.innerHTML="";
+
+    data.forEach((item,index)=>{
+        body.innerHTML+=`
+        <tr>
+            <td>${item.email}</td>
+            <td class="text-center">
+                <span class="badge badge-success" style="background:#38ef7d;color:#000;">
+                ${item.jumlahResult}
+                </span>
+            </td>
+            <td class="text-center">
+                <button onclick="deleteEmail(${index})"
+                style="background:none;border:none;color:#ff4b2b;font-size:18px;">
+                <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deleteEmail(index){
+    let data=JSON.parse(localStorage.getItem("emailData"))||[];
+    data.splice(index,1);
+    localStorage.setItem("emailData",JSON.stringify(data));
+    loadEmails();
+}
+</script>
+
+</body>
+</html>
